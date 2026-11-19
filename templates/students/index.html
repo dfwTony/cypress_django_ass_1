@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page-title">All Students</h1>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fa-solid fa-list"></i> Student Records
+    </div>
+    <div class="card-body">
+        {% if students %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student Number</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Field of Study</th>
+                    <th>GPA</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.student_number }}</td>
+                    <td>{{ student.first_name }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.field_of_study }}</td>
+                    <td>{{ student.gpa }}</td>
+                    <td>
+                        <!-- View button -->
+                        <a href="{% url 'view_student' student.id %}" class="btn btn-success">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+
+                        <!-- Edit button -->
+                        <a href="{% url 'edit' student.id %}" class="btn btn-warning">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <!-- Delete button (opens a popup to confirm) -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{ student.id }}">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+
+                        <!-- Delete confirmation popup -->
+                        <div class="modal fade" id="delete{{ student.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Delete Student</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete {{ student.first_name }} {{ student.last_name }}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form action="{% url 'delete' student.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="mb-0">No students yet. <a href="{% url 'add' %}">Add one</a>.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

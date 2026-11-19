@@ -1,18 +1,48 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Student
+from .forms import StudentForm
 
-# Create your views here.
+
+# Show all students in a table
 def index(request):
-    return render(request, 'home/index.html')
+    students = Student.objects.all()
+    return render(request, 'students/index.html', {'students': students})
 
-def student_dashboard(request):
-    return render(request, 'students/student-dashboard.html')
 
-def add_student(request):
-    return render(request, 'students/add-student.html')
+# Show the details of one student
+def view_student(request, id):
+    student = get_object_or_404(Student, pk=id)
+    return render(request, 'students/view.html', {'student': student})
 
-def edit_student(request):
-    return render(request, 'students/edit-student.html')
 
-def students(request):
-    return render(request, 'students/')
+# Add a new student
+def add(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = StudentForm()
+    return render(request, 'students/add.html', {'form': form})
+
+
+# Edit an existing student
+def edit(request, id):
+    student = get_object_or_404(Student, pk=id)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = StudentForm(instance=student)
+    return render(request, 'students/edit.html', {'form': form, 'student': student})
+
+
+# Delete a student (only when the form is submitted with POST)
+def delete(request, id):
+    student = get_object_or_404(Student, pk=id)
+    if request.method == 'POST':
+        student.delete()
+    return redirect('index')

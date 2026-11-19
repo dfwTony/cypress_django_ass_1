@@ -1,12 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name = 'index'),
-    path('student_dashboard/', views.student_dashboard, name = 'student_dashboard'),
-    path('add_student/', views.add_student, name = 'add_student'),
-    path('add_student/', views.edit_student, name = 'edit_student'),
-    path('students/', views.students, name = 'students'),
-    
+    path('', views.index, name='index'),
+    path('<int:id>/', views.view_student, name='view_student'),
+    path('add/', views.add, name='add'),
+    path('edit/<int:id>/', views.edit, name='edit'),
+    path('delete/<int:id>/', views.delete, name='delete'),
 ]

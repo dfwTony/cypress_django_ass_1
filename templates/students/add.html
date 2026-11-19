@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page-title">Add Student</h1>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fa-solid fa-plus"></i> New Student
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {% include 'students/form_fields.html' %}
+            <button type="submit" class="btn btn-primary">Add Student</button>
+            <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

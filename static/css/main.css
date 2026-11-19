@@ -1,0 +1,76 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Blue navigation bar */
+.navbar {
+    background-color: #3858e9;
+    padding: 12px 0;
+}
+
+.navbar-brand {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 30px;
+}
+
+.navbar .nav-link {
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+/* Card around the table */
+.card {
+    background-color: #f8f9fa;
+}
+
+.card-header {
+    background-color: #eff0f2;
+    padding: 16px 24px;
+}
+
+.card-body {
+    padding: 30px 24px;
+}
+
+/* Table */
+.table {
+    font-size: 14px;
+}
+
+.table th,
+.table td {
+    background-color: transparent;
+    padding: 16px;
+}
+
+.table thead th {
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 2px solid #444;
+}
+
+.table .btn {
+    width: 52px;
+    color: #ffffff;
+}
+
+footer {
+    color: #333;
+}

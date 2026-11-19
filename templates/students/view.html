@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page-title">Student Details</h1>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fa-solid fa-user"></i> {{ student.first_name }} {{ student.last_name }}
+    </div>
+    <div class="card-body">
+        <p><strong>Student Number:</strong> {{ student.student_number }}</p>
+        <p><strong>First Name:</strong> {{ student.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ student.last_name }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Field of Study:</strong> {{ student.field_of_study }}</p>
+        <p><strong>GPA:</strong> {{ student.gpa }}</p>
+
+        <a href="{% url 'edit' student.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+{% endblock %}
